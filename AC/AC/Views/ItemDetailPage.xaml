@@ -8,5 +8,8 @@
         <Label Text="{Binding Item.Text}" FontSize="Small"/>
         <Label Text="Description:" FontSize="Medium" />
         <Label Text="{Binding Item.Description}" FontSize="Small"/>
+        <Label Text="Image:" FontSize="Medium" />
+        <Label Text="{Binding Item.Icon.Source}" FontSize="Small"/>
+        <Image Source="{Binding Item.Icon.Source}"/>
     </StackLayout>
 </ContentPage>

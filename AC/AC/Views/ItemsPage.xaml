@@ -36,6 +36,11 @@
                        LineBreakMode="NoWrap"
                        Style="{DynamicResource ListItemDetailTextStyle}"
                        FontSize="13" />
+                                <Label Text="{Binding Icon.Source}"
+                       LineBreakMode="NoWrap"
+                       Style="{DynamicResource ListItemDetailTextStyle}"
+                       FontSize="13" />
+                              <Image Source ="{Binding Icon.Source}" WidthRequest="64" HeightRequest="64"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -15,12 +15,11 @@ namespace AC.Services
             items = new List<Item>();
             var mockItems = new List<Item>
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is an item description." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Jeść", Description="Chce mi się jeść", Icon = new Xamarin.Forms.Image{ Source = "jedzenie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Czytać", Description="Chce mi się czytać", Icon = new Xamarin.Forms.Image{ Source = "czytanie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Pić", Description="Chce mi się pić", Icon = new Xamarin.Forms.Image{ Source = "picie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Spać", Description="Chce mi się spać", Icon = new Xamarin.Forms.Image{ Source = "spanie" } }
+
             };
 
             foreach (var item in mockItems)
