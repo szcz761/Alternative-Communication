@@ -18,6 +18,14 @@ namespace AC.Services
                 new Item { Id = Guid.NewGuid().ToString(), Text = "Jeść", Description="Chce mi się jeść", Icon = new Xamarin.Forms.Image{ Source = "jedzenie" } },
                 new Item { Id = Guid.NewGuid().ToString(), Text = "Czytać", Description="Chce mi się czytać", Icon = new Xamarin.Forms.Image{ Source = "czytanie" } },
                 new Item { Id = Guid.NewGuid().ToString(), Text = "Pić", Description="Chce mi się pić", Icon = new Xamarin.Forms.Image{ Source = "picie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Spać", Description="Chce mi się spać", Icon = new Xamarin.Forms.Image{ Source = "spanie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Jeść", Description="Chce mi się jeść", Icon = new Xamarin.Forms.Image{ Source = "jedzenie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Czytać", Description="Chce mi się czytać", Icon = new Xamarin.Forms.Image{ Source = "czytanie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Pić", Description="Chce mi się pić", Icon = new Xamarin.Forms.Image{ Source = "picie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Spać", Description="Chce mi się spać", Icon = new Xamarin.Forms.Image{ Source = "spanie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Jeść", Description="Chce mi się jeść", Icon = new Xamarin.Forms.Image{ Source = "jedzenie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Czytać", Description="Chce mi się czytać", Icon = new Xamarin.Forms.Image{ Source = "czytanie" } },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Pić", Description="Chce mi się pić", Icon = new Xamarin.Forms.Image{ Source = "picie" } },
                 new Item { Id = Guid.NewGuid().ToString(), Text = "Spać", Description="Chce mi się spać", Icon = new Xamarin.Forms.Image{ Source = "spanie" } }
 
             };

@@ -17,12 +17,43 @@ namespace AC.Views
     public partial class ItemsPage : ContentPage
     {
         ItemsViewModel viewModel;
-
+        int Column = 3;
         public ItemsPage()
         {
             InitializeComponent();
+            viewModel = new ItemsViewModel();
+            viewModel.LoadItemsCommand.Execute(null);
+            InitializeGird();
+        }
 
-            BindingContext = viewModel = new ItemsViewModel();
+        private void InitializeGird()
+        {
+            for (int i = 0; i < Column; i++)
+                girdLayout.ColumnDefinitions.Add(new ColumnDefinition());
+
+            for (int i = 0; i < viewModel.Items.Count / Column; i++)
+                girdLayout.RowDefinitions.Add(new RowDefinition());
+
+            for (int j = 0; j < viewModel.Items.Count / Column; j++)
+                for (int i = 0; i < Column; i++)
+                    girdLayout.Children.Add(GetButtonWithProperParams(i, j), i, j);
+        }
+
+        private Button GetButtonWithProperParams(int i, int j)
+        {
+            Item actualItem = viewModel.Items[i + (j * Column)];
+            Button button = new Button { Image = actualItem.Icon.Source.ToString().Remove(0, 6) };//Source::toString metod return "file: <name>" so we have to delete "file: "
+            button.Command = new Command<Item>(Butoon_Clicked); 
+            button.CommandParameter = actualItem;
+            return button;
+        }
+
+        async void Butoon_Clicked(Item item) {
+
+            if (item == null)
+                return;
+
+            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -34,7 +65,7 @@ namespace AC.Views
             await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
 
             // Manually deselect item.
-            ItemsListView.SelectedItem = null;
+            //ItemsListView.SelectedItem = null;
         }
 
         async void AddItem_Clicked(object sender, EventArgs e)
