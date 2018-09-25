@@ -16,12 +16,13 @@ namespace AC.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel viewModel;
+        ItemsViewModel viewModel = new ItemsViewModel();
         int Column = 3;
+   
+
         public ItemsPage()
-        {
+        { 
             InitializeComponent();
-            viewModel = new ItemsViewModel();
             viewModel.LoadItemsCommand.Execute(null);
             InitializeGird();
         }
@@ -36,36 +37,20 @@ namespace AC.Views
 
             for (int j = 0; j < viewModel.Items.Count / Column; j++)
                 for (int i = 0; i < Column; i++)
-                    girdLayout.Children.Add(GetButtonWithProperParams(i, j), i, j);
+                    girdLayout.Children.Add(GetImageWithProperParams(i, j), i, j);
         }
 
-        private Button GetButtonWithProperParams(int i, int j)
+        private Image GetImageWithProperParams(int i, int j)
         {
-            Item actualItem = viewModel.Items[i + (j * Column)];
-            Button button = new Button { Image = actualItem.Icon.Source.ToString().Remove(0, 6) };//Source::toString metod return "file: <name>" so we have to delete "file: "
-            button.Command = new Command<Item>(Butoon_Clicked); 
-            button.CommandParameter = actualItem;
-            return button;
-        }
+            var tapGestureRecognizer = new TapGestureRecognizer();
+            var currentIndex = i + (j * Column);
 
-        async void Butoon_Clicked(Item item) {
+            tapGestureRecognizer.Tapped += async (s, e) => {
+                await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(viewModel.Items[currentIndex])));
+            };
+            viewModel.Items[currentIndex].Image.GestureRecognizers.Add(tapGestureRecognizer);
 
-            if (item == null)
-                return;
-
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
-        }
-
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-        {
-            var item = args.SelectedItem as Item;
-            if (item == null)
-                return;
-
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
-
-            // Manually deselect item.
-            //ItemsListView.SelectedItem = null;
+            return viewModel.Items[currentIndex].Image;
         }
 
         async void AddItem_Clicked(object sender, EventArgs e)
@@ -75,10 +60,17 @@ namespace AC.Views
 
         protected override void OnAppearing()
         {
+            //girdLayout.Children.Clear();
             base.OnAppearing();
 
             if (viewModel.Items.Count == 0)
                 viewModel.LoadItemsCommand.Execute(null);
         }
+
+       /* protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            Column = (int)width/30;
+        }*/
     }
 }

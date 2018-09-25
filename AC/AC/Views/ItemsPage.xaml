@@ -14,6 +14,8 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid x:Name="girdLayout"/>
+        <ScrollView>
+            <Grid x:Name="girdLayout"/>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

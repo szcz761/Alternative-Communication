@@ -28,7 +28,7 @@ namespace AC.Views
             {
                 Text = "Item 1",
                 Description = "This is an item description.",
-                Icon = new Image { Source = "xamarin_logo.png" }
+                Image = new Image { Source = "xamarin_logo.png" }
             };
 
             viewModel = new ItemDetailViewModel(item);
