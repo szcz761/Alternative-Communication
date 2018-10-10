@@ -12,8 +12,8 @@ namespace AC.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
-
+        public IDataStore<GroupOfItems> DataStore => DependencyService.Get<IDataStore<GroupOfItems>>() ?? new MockDataStore();
+        //public ObservableCollection<GroupOfItems> Group { get; set; }
         bool isBusy = false;
         public bool IsBusy
         {
@@ -51,6 +51,8 @@ namespace AC.ViewModels
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
         #endregion
     }
 }

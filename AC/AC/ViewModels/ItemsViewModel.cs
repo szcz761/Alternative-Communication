@@ -12,19 +12,19 @@ namespace AC.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
+        public ObservableCollection<GroupOfItems> Groups { get; set; }
         public Command LoadItemsCommand { get; set; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Groups = new ObservableCollection<GroupOfItems>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<NewItemPage, GroupOfItems>(this, "AddItem", async (obj, item) =>
             {
-                var newItem = item as Item;
-                Items.Add(newItem);
+                var newItem = item as GroupOfItems;
+                Groups.Add(newItem);
                 await DataStore.AddItemAsync(newItem);
             });
         }
@@ -38,11 +38,11 @@ namespace AC.ViewModels
 
             try
             {
-                Items.Clear();
+                Groups.Clear();
                 var items = await DataStore.GetItemsAsync(true);
                 foreach (var item in items)
                 {
-                    Items.Add(item);
+                    Groups.Add(item);
                 }
             }
             catch (Exception ex)
