@@ -36,7 +36,10 @@ namespace AC.Services
                 new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "Pić", Description = "Chce mi się pić", Image = new Xamarin.Forms.Image { Source = "picie" } },
                 new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.verb, Text = "Spać", Description = "Chce mi się spać", Image = new Xamarin.Forms.Image { Source = "spanie" } }
                 });
-            
+                if (title == "Czasownik")
+                    group.Items.RemoveRange(0, 5);
+
+
                 group.Title = title;
                 return group;
             }

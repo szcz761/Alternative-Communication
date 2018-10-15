@@ -8,14 +8,17 @@
 
 
     <StackLayout Orientation="Vertical"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand">
+>
+
+        <ScrollView Orientation="Horizontal" IsVisible="True">
+            <ListView x:Name="VerticalPictures"/>
+        </ScrollView>
+
 
         <Editor x:Name="TextField" Text="elo" HeightRequest="52"/>
         
         <controls:SegmentedTabControl UnselectedSegmentBackgroundColor="Blue" TintColor="#007AFF" x:Name="SwitchTab"
-                                      SelectedSegment="0" HeightRequest="52" ItemTapped="SegmentedControl_ItemTapped">
-        </controls:SegmentedTabControl>
+                                      SelectedSegment="0" MinimumHeightRequest="100" ItemTapped="SegmentedControl_ItemTapped"/>
         <ScrollView>
             <Grid x:Name="GirdLayout"/>
         </ScrollView>
