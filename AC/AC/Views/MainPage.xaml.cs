@@ -19,14 +19,19 @@ namespace AC.Views
         int Column = 3;
         public MainPage()
         {
+           
+
+              
+            Images.Add(new Image { Source = "spanie" });
+            Images.Add(new Image { Source = "picie" });
+            //Images.Add(viewModel.Groups[0].Items[2].Image);
             InitializeComponent();
             viewModel.LoadItemsCommand.Execute(null);
             InitializeTabs();
             UpdateGrid(viewModel.Groups[0].Items);
-            Images.Add(viewModel.Groups[0].Items[0].Image);
-            Images.Add(viewModel.Groups[0].Items[1].Image);
-            Images.Add(viewModel.Groups[0].Items[2].Image);
-            VerticalPictures.BindingContext = Images;
+            //VerticalPictures.SetBinding(VerticalPictures.ItemTemplate, "Images");
+
+
         }
         private void InitializeTabs()
         {

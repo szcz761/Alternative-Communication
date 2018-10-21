@@ -11,7 +11,15 @@
 >
 
         <ScrollView Orientation="Horizontal" IsVisible="True">
-            <ListView x:Name="VerticalPictures"/>
+            <ListView x:Name="VerticalPictures"  ItemsSource="{Binding Images}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Image Source="{Binding Source}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </ScrollView>
 
 
