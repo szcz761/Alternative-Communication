@@ -1,34 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"           
       xmlns:controls="clr-namespace:SegmentedTabControl.FormsPlugin;assembly=SegmentedTabControl"
       x:Class="AC.Views.MainPage"
       BackgroundColor="White"
-      Title="Time Sheet">
+      Title="Main Page">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete" Clicked="DeleteImage_Click"  />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12*"/>
+                <RowDefinition Height="12*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="70*"/>
+            </Grid.RowDefinitions>
 
-    <StackLayout Orientation="Vertical"
->
+            <ScrollView Orientation="Horizontal" Grid.Row="0">
+                <Grid x:Name="GridText"/>
+            </ScrollView>
+            
+            <Editor x:Name="TextField" Grid.Row="1"/>
 
-        <ScrollView Orientation="Horizontal" IsVisible="True">
-            <ListView x:Name="VerticalPictures"  ItemsSource="{Binding Images}" >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Image Source="{Binding Source}"/>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollView>
+            <controls:SegmentedTabControl Grid.Row="2" HorizontalOptions="FillAndExpand" UnselectedSegmentBackgroundColor="Blue" TintColor="#007AFF" 
+                                          x:Name="SwitchTab" SelectedSegment="0" ItemTapped="SegmentedControl_ItemTapped"/>
 
-
-        <Editor x:Name="TextField" Text="elo" HeightRequest="52"/>
-        
-        <controls:SegmentedTabControl UnselectedSegmentBackgroundColor="Blue" TintColor="#007AFF" x:Name="SwitchTab"
-                                      SelectedSegment="0" MinimumHeightRequest="100" ItemTapped="SegmentedControl_ItemTapped"/>
-        <ScrollView>
-            <Grid x:Name="GirdLayout"/>
-        </ScrollView>
-    </StackLayout>
+            <ScrollView Grid.Row="3">
+                 <Grid x:Name="ContentGridLayout"/>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

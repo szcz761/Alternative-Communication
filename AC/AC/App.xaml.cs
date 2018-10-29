@@ -3,7 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AC.Views;
 
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace AC
 {
     public partial class App : Application
@@ -11,8 +11,14 @@ namespace AC
 
         public App()
         {
-            InitializeComponent();
-
+            try
+            {
+                InitializeComponent();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
             MainPage = new NavigationPage(new MainPage());
         }
