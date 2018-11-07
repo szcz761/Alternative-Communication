@@ -2,7 +2,6 @@
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
 using System.Collections.Generic;
 using AC.ViewModels;
 using AC.Models;
@@ -121,6 +120,5 @@ namespace AC.Views
         {
             MessagingCenter.Send(this, "Speech_Clicked");
         }
-
     }
 }

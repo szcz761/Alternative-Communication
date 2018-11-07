@@ -28,6 +28,7 @@
 
             <Editor x:Name="TextField" Grid.Row="1" Text="{Binding Text}"/>
 
+
             <controls:SegmentedTabControl Grid.Row="2" x:Name="SwitchTab" UnselectedSegmentBackgroundColor="Blue" TintColor="#007AFF" ItemTapped="SegmentedControl_ItemTapped"/>
 
             <ScrollView Grid.Row="3">
@@ -35,4 +36,5 @@
             </ScrollView>
         </Grid>
     </ContentPage.Content>
+
 </ContentPage>
