@@ -2,7 +2,6 @@
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
 using System.Collections.Generic;
 using AC.ViewModels;
 using AC.Models;
@@ -19,10 +18,6 @@ namespace AC.Views
         public MainPage()
         {
             BindingContext = viewModel = new ItemsViewModel();
-            InitializeComponent();
-            viewModel.LoadItemsCommand.Execute(null);
-            InitializeTabs();
-            UpdateGrid(viewModel.Groups[0].Items);
             MessagingCenter.Subscribe<ItemsViewModel, string>(this, "UpdateText", (obj, text) => {
                     TextField.Text = text;
             });
@@ -121,6 +116,5 @@ namespace AC.Views
         {
             MessagingCenter.Send(this, "Speech_Clicked");
         }
-
     }
 }
