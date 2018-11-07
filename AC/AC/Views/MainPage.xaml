@@ -4,10 +4,13 @@
       xmlns:controls="clr-namespace:SegmentedTabControl.FormsPlugin;assembly=SegmentedTabControl"
       x:Class="AC.Views.MainPage"
       BackgroundColor="White"
-      Title="Main Page">
+      Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" Clicked="DeleteImage_Click"  />
+        <ToolbarItem Text="Delete" Clicked="DeleteImage_Click" />
+        <ToolbarItem  Text="Speech" Clicked="Speech_Clicked" />
+        <ToolbarItem Text="Add Group" Order="Secondary" Priority="0" Clicked="AddGroup_Clicked" />
+        <ToolbarItem Text="Add Item" Order="Secondary" Priority="1" Clicked="AddItem_Clicked" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
@@ -22,11 +25,10 @@
             <ScrollView Orientation="Horizontal" Grid.Row="0">
                 <Grid x:Name="GridText"/>
             </ScrollView>
-            
-            <Editor x:Name="TextField" Grid.Row="1"/>
 
-            <controls:SegmentedTabControl Grid.Row="2" HorizontalOptions="FillAndExpand" UnselectedSegmentBackgroundColor="Blue" TintColor="#007AFF" 
-                                          x:Name="SwitchTab" SelectedSegment="0" ItemTapped="SegmentedControl_ItemTapped"/>
+            <Editor x:Name="TextField" Grid.Row="1" Text="{Binding Text}"/>
+
+            <controls:SegmentedTabControl Grid.Row="2" x:Name="SwitchTab" UnselectedSegmentBackgroundColor="Blue" TintColor="#007AFF" ItemTapped="SegmentedControl_ItemTapped"/>
 
             <ScrollView Grid.Row="3">
                  <Grid x:Name="ContentGridLayout"/>

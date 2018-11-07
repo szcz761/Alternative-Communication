@@ -15,8 +15,11 @@ namespace AC.Views
 
         public NewItemPage()
         {
-            InitializeComponent();
-
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e) { }
             Item = new Item
             {
                 Text = "Item name",

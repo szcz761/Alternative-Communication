@@ -7,22 +7,27 @@ using System.Collections.Generic;
 using AC.ViewModels;
 using AC.Models;
 using System.Collections.ObjectModel;
+using AC.Services;
 
 namespace AC.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-        ItemsViewModel viewModel = new ItemsViewModel();     
+        ItemsViewModel viewModel;
         int Column = 3;
         public MainPage()
         {
+            BindingContext = viewModel = new ItemsViewModel();
             InitializeComponent();
             viewModel.LoadItemsCommand.Execute(null);
             InitializeTabs();
             UpdateGrid(viewModel.Groups[0].Items);
+            MessagingCenter.Subscribe<ItemsViewModel, string>(this, "UpdateText", (obj, text) => {
+                    TextField.Text = text;
+            });
         }
-        
+
         private void InitializeTabs()
         {
             foreach (var group in viewModel.Groups)
@@ -68,12 +73,21 @@ namespace AC.Views
             ContentGridLayout.ColumnDefinitions.Clear();
             ContentGridLayout.RowDefinitions.Clear();
         }
+        async void AddItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NewItemPage());
+        }
+
+        async void AddGroup_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NewItemPage());
+        }
+
         private Image GetImageWithProperParams(List<Item> group, int currentIndex)
         {
             var tapGestureRecognizer = new TapGestureRecognizer();
-
             tapGestureRecognizer.Tapped += (s, e) => {
-                TextField.Text += group[currentIndex].Text + " ";
+                MessagingCenter.Send(this,  "ClickPicture", group[currentIndex]);
                 AddImage(new Image { Source = group[currentIndex].Image.Source });
             };
             group[currentIndex].Image.GestureRecognizers.Clear();
@@ -97,5 +111,16 @@ namespace AC.Views
             GridText.ColumnDefinitions.RemoveAt(GridText.ColumnDefinitions.Count - 1);
 
         }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Speech_Clicked(object sender, EventArgs e)
+        {
+            MessagingCenter.Send(this, "Speech_Clicked");
+        }
+
     }
 }
