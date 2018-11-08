@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-
 using AC.Models;
 using AC.Views;
 using AC.Services;
@@ -16,27 +15,23 @@ namespace AC.ViewModels
         public ObservableCollection<GroupOfItems> Groups { get; set; }
         public Command LoadItemsCommand { get; set; }
         public string Text { get; set; }
-        private ISpeechToText _speechRecongnitionInstance;
+        private ISpeechToText SpeechToText;
+        private ITextToSpeech TextToSpeech;
 
         public ItemsViewModel()
         {
-            Title = "Browse";
+            Title = "AC";
             Groups = new ObservableCollection<GroupOfItems>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            SetUpSpeechToText();
-
-            MessagingCenter.Subscribe<NewItemPage, GroupOfItems>(this, "AddItem", async (obj, item) =>
-            {
-                var newItem = item as GroupOfItems;
-                Groups.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
-            });
-
-            MessagingCenter.Subscribe<MainPage, Item>(this, "ClickPicture", (obj, item) =>
-            {
-                Text  += item.Text + " ";
+            try{
+                SpeechToText = DependencyService.Get<ISpeechToText>();
+                TextToSpeech = DependencyService.Get<ITextToSpeech>();
+            }
+            catch (Exception ex){
+                Text = ex.Message;
                 UpdateText();
-            });
+            } 
+            SetUpSubscribes();       
         }
 
         private void UpdateText()
@@ -70,27 +65,19 @@ namespace AC.ViewModels
             }
         }
 
-        private void SetUpSpeechToText()
+        private void SetUpSubscribes()
         {
-            try
-            {
-                _speechRecongnitionInstance = DependencyService.Get<ISpeechToText>();
-            }
-            catch (Exception ex)
-            {
-                Text = ex.Message;
-            }
-
             MessagingCenter.Subscribe<ISpeechToText, string>(this, "STT", (sender, args) =>
             {
                 Text += args;
                 UpdateText();
             });
 
-            MessagingCenter.Subscribe<MainPage>(this, "Speech_Clicked", (sender) => {
+            MessagingCenter.Subscribe<MainPage>(this, "Speech_Clicked", (sender) =>
+            {
                 try
                 {
-                    _speechRecongnitionInstance.StartSpeechToText();
+                    SpeechToText.StartSpeechToText();
                 }
                 catch (Exception ex)
                 {
@@ -103,6 +90,24 @@ namespace AC.ViewModels
             {
                 Text = args;
                 UpdateText();
+            });
+
+            MessagingCenter.Subscribe<NewItemPage, GroupOfItems>(this, "AddItem", async (obj, item) =>
+            {
+                var newItem = item as GroupOfItems;
+                Groups.Add(newItem);
+                await DataStore.AddItemAsync(newItem);
+            });
+
+            MessagingCenter.Subscribe<MainPage, Item>(this, "ClickPicture", (obj, item) =>
+            {
+                Text += item.Text + " ";
+                UpdateText();
+            });
+
+            MessagingCenter.Subscribe<MainPage>(this, "Listen_Clicked", (sender) =>
+            {
+                TextToSpeech.Speak(Text);
             });
         }
     }

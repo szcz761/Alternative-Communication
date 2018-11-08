@@ -5,6 +5,8 @@ using Android.OS;
 using Android.Speech;
 using Xamarin.Forms;
 using AC.Services;
+using Xamarin.Essentials;
+using Android.Runtime;
 
 namespace AC.Droid
 {
@@ -12,17 +14,26 @@ namespace AC.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity , IMessageSender
     {
         private readonly int VOICE = 10;
+        public static MainActivity Instance { get; private set; }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
+           
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+            Instance = this;
         }
-   
-    protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
     {
 
         if (requestCode == VOICE)

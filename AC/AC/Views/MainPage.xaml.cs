@@ -115,6 +115,10 @@ namespace AC.Views
         {
 
         }
+        private void Listen_Clicked(object sender, EventArgs e)
+        {
+            MessagingCenter.Send(this, "Listen_Clicked");
+        }
 
         private void Speech_Clicked(object sender, EventArgs e)
         {
