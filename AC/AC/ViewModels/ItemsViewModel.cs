@@ -69,9 +69,10 @@ namespace AC.ViewModels
         {
             MessagingCenter.Subscribe<ISpeechToText, string>(this, "STT", (sender, args) =>
             {
-                Text += args;
+                Text += args + " ";
                 UpdateText();
             });
+
 
             MessagingCenter.Subscribe<MainPage>(this, "Speech_Clicked", (sender) =>
             {
@@ -88,7 +89,7 @@ namespace AC.ViewModels
 
             MessagingCenter.Subscribe<IMessageSender, string>(this, "STT", (sender, args) =>
             {
-                Text = args;
+                Text = Text + args + " ";
                 UpdateText();
             });
 
@@ -102,6 +103,21 @@ namespace AC.ViewModels
             MessagingCenter.Subscribe<MainPage, Item>(this, "ClickPicture", (obj, item) =>
             {
                 Text += item.Text + " ";
+                UpdateText();
+            });
+
+            MessagingCenter.Subscribe<MainPage>(this, "Delete_Clicked", (sender) =>
+            {
+                if (Text.Length < 1)
+                    return;
+                Text = Text.Remove(Text.Length - 1,1);
+                if (Text.Contains(" "))
+                {
+                    Text = Text.Remove(Text.LastIndexOf(" "));
+                    Text += " ";
+                }
+                else
+                    Text = "";
                 UpdateText();
             });
 

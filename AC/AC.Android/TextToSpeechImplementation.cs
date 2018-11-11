@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AC.Droid;
+﻿using AC.Droid;
 using AC.Services;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Speech.Tts;
-using Android.Views;
-using Android.Widget;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(TextToSpeechImplementation))]
@@ -30,7 +20,7 @@ namespace AC.Droid
             }
             else
             {
-                speaker.Speak(toSpeak, QueueMode.Flush,null,null);//(toSpeak, QueueMode.Flush, null, null);
+                speaker.Speak(toSpeak, QueueMode.Flush,null,null);
             }
         }
 

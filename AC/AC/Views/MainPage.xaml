@@ -19,18 +19,18 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="12*"/>
                 <RowDefinition Height="12*"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="70*"/>
+                <RowDefinition Height="12*"/>
+                <RowDefinition Height="64*"/>
             </Grid.RowDefinitions>
 
             <ScrollView Orientation="Horizontal" Grid.Row="0">
                 <Grid x:Name="GridText"/>
             </ScrollView>
 
-            <Editor x:Name="TextField" Grid.Row="1" Text="{Binding Text}"/>
+            <Editor x:Name="TextField" Grid.Row="1" Text="{Binding Text}" TextChanged="ChangeText"/>
 
 
-            <controls:SegmentedTabControl Grid.Row="2" x:Name="SwitchTab" UnselectedSegmentBackgroundColor="Blue" TintColor="#007AFF" ItemTapped="SegmentedControl_ItemTapped"/>
+            <Grid Grid.Row="2" x:Name="SwitchTab" />
 
             <ScrollView Grid.Row="3">
                  <Grid x:Name="ContentGridLayout"/>

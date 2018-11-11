@@ -7,6 +7,7 @@ using AC.ViewModels;
 using AC.Models;
 using System.Collections.ObjectModel;
 using AC.Services;
+using System.Threading.Tasks;
 
 namespace AC.Views
 {
@@ -15,6 +16,7 @@ namespace AC.Views
     {
         ItemsViewModel viewModel;
         int Column = 3;
+        bool Delete = false;
         public MainPage()
         {
             BindingContext = viewModel = new ItemsViewModel();
@@ -22,25 +24,55 @@ namespace AC.Views
             viewModel.LoadItemsCommand.Execute(null);
             InitializeTabs();
             UpdateGrid(viewModel.Groups[0].Items);
-            MessagingCenter.Subscribe<ItemsViewModel, string>(this, "UpdateText", (obj, text) => {
-                    TextField.Text = text;
+            MessagingCenter.Subscribe<ItemsViewModel, string>(this, "UpdateText", (obj, text) =>
+            {
+                TextField.Text = text;
             });
         }
 
+        
+        private void ChangeText(object sender, EventArgs e)
+        {
+            if (TextField.Text.Length == 0)
+                return;
+            if (Delete){
+                Delete = false;
+                return;
+            }
+            var text = TextField.Text.Remove(TextField.Text.Length - 1, 1);
+            text = text.Insert(0, " ");
+            if (text.Length>1)
+                foreach (var group in viewModel.Groups)
+                {
+                    var it = group.Items.Find(x => x.Text == text.Substring(text.LastIndexOf(" ") + 1));
+                    if (null != it){
+                        AddImage(new Image { Source = it.Image.Source });
+                        return;
+                    }
+                }
+        }
+        
         private void InitializeTabs()
         {
+            int i = 0;
             foreach (var group in viewModel.Groups)
             {
-                SwitchTab.Children.Add(new Label { Text = group.Title ,FontSize=17, TextColor=Color.White});
+                SwitchTab.ColumnDefinitions.Add(new ColumnDefinition());
+                var tapGestureRecognizer = new TapGestureRecognizer();
+                tapGestureRecognizer.Tapped += (s, e) => {
+                    UpdateGrid(group.Items);                  
+                };              
+                group.Image.GestureRecognizers.Add(tapGestureRecognizer);
+                SwitchTab.Children.Add(group.Image, i++,0);
             }
         }
 
-        private void SegmentedControl_ItemTapped(object sender, int groupIterator)
+        async void SegmentedControl_ItemTapped(object sender, int groupIterator)
         {
-            UpdateGrid(viewModel.Groups[groupIterator].Items);
+            await UpdateGrid(viewModel.Groups[groupIterator].Items);
         }
 
-        private void UpdateGrid(List<Item> group)
+        async Task<bool> UpdateGrid(List<Item> group)
         {
             CleanGirdLayout();
 
@@ -56,6 +88,7 @@ namespace AC.Views
 
             if (group.Count % Column != 0)           
                 AddExtraRow(group);
+            return await Task.FromResult(true);
         }
 
         private void AddExtraRow(List<Item> group)
@@ -87,11 +120,11 @@ namespace AC.Views
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += (s, e) => {
                 MessagingCenter.Send(this,  "ClickPicture", group[currentIndex]);
-                AddImage(new Image { Source = group[currentIndex].Image.Source });
+                //AddImage(new Image { Source = group[currentIndex].Image.Source });
             };
             group[currentIndex].Image.GestureRecognizers.Clear();
             group[currentIndex].Image.GestureRecognizers.Add(tapGestureRecognizer);
-
+            group[currentIndex].Image.HeightRequest = 0.5;
             return group[currentIndex].Image;
         }
         private void AddImage(Image image)
@@ -104,11 +137,15 @@ namespace AC.Views
 
         public void DeleteImage_Click(object sender, EventArgs e)
         {
-            if(GridText.Children.Count==0)
+            
+            if (GridText.Children.Count == 0){
+                MessagingCenter.Send(this, "Delete_Clicked");
                 return;
+            }
+            Delete = true;
             GridText.Children.RemoveAt(GridText.Children.Count - 1);
             GridText.ColumnDefinitions.RemoveAt(GridText.ColumnDefinitions.Count - 1);
-
+            MessagingCenter.Send(this, "Delete_Clicked");
         }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)

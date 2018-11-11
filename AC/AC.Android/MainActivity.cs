@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using AC.Services;
 using Xamarin.Essentials;
 using Android.Runtime;
+using Android.Content.Res;
 
 namespace AC.Droid
 {
@@ -15,10 +16,16 @@ namespace AC.Droid
     {
         private readonly int VOICE = 10;
         public static MainActivity Instance { get; private set; }
+        //public static AssetManager AssetManager { get; private set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+
+            var listAssets = Assets.List("XML");
+            foreach (var file in listAssets)
+                Android.Util.Log.Info("MyLogTag", file);
            
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
@@ -26,6 +33,7 @@ namespace AC.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             Instance = this;
+            //AssetManager = this.Assets;
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
