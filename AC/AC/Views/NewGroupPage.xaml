@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AC.Views.NewItemPage"
+             x:Class="AC.Views.NewGroupPage"
              Title="Dodaj">
     <ScrollView>
         <StackLayout Spacing="10" Padding="10">
             <Button x:Name="PickPhoto" Text="Wybierz Obraz"/>
-            <Editor x:Name="TextField" Text="słowo"/>
-            <Picker x:Name="PickerGroup"/>
+            <Editor x:Name="TextField" Text="Nazwa Grupy"/>
             <Image x:Name="image"/>
             <Button x:Name="Ok" Text="Ok" Clicked="Ok_clicked"/>
             

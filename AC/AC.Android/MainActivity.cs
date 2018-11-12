@@ -7,7 +7,9 @@ using Xamarin.Forms;
 using AC.Services;
 using Xamarin.Essentials;
 using Android.Runtime;
+using Plugin.Permissions;
 using Android.Content.Res;
+using Plugin.CurrentActivity;
 
 namespace AC.Droid
 {
@@ -21,23 +23,25 @@ namespace AC.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
 
-            var listAssets = Assets.List("XML");
-            foreach (var file in listAssets)
-                Android.Util.Log.Info("MyLogTag", file);
-           
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+           
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             Instance = this;
+           
             //AssetManager = this.Assets;
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }

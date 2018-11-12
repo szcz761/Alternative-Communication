@@ -14,5 +14,13 @@ namespace AC.Models
         {
             Items = new List<Item>(items);
         }
+        public GroupOfItems()
+        {
+            Items = new List<Item>();
+        }
+        override public string ToString()
+        {
+            return Title;
+        }
     }
 }

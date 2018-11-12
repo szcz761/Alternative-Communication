@@ -8,6 +8,8 @@ using AC.Models;
 using System.Collections.ObjectModel;
 using AC.Services;
 using System.Threading.Tasks;
+using FFImageLoading;
+using FFImageLoading.Forms;
 
 namespace AC.Views
 {
@@ -28,43 +30,55 @@ namespace AC.Views
             {
                 TextField.Text = text;
             });
+            MessagingCenter.Subscribe<NewGroupPage, GroupOfItems>(this, "AddGroup", (sender, group) =>
+            {
+                AddSwitchTab(SwitchTab.Children.Count, group);
+            });
         }
 
-        
+
         private void ChangeText(object sender, EventArgs e)
         {
             if (TextField.Text.Length == 0)
                 return;
-            if (Delete){
+            if (Delete) {
                 Delete = false;
                 return;
             }
             var text = TextField.Text.Remove(TextField.Text.Length - 1, 1);
             text = text.Insert(0, " ");
-            if (text.Length>1)
+            if (text.Length > 1)
                 foreach (var group in viewModel.Groups)
                 {
                     var it = group.Items.Find(x => x.Text == text.Substring(text.LastIndexOf(" ") + 1));
-                    if (null != it){
-                        AddImage(new Image { Source = it.Image.Source });
+                    if (null != it) {
+                        AddImage(new CachedImage { Source = it.Image.Source });
                         return;
                     }
                 }
-        }
+        
+            }
         
         private void InitializeTabs()
         {
-            int i = 0;
+            int i = 0;            
             foreach (var group in viewModel.Groups)
             {
-                SwitchTab.ColumnDefinitions.Add(new ColumnDefinition());
-                var tapGestureRecognizer = new TapGestureRecognizer();
-                tapGestureRecognizer.Tapped += (s, e) => {
-                    UpdateGrid(group.Items);                  
-                };              
-                group.Image.GestureRecognizers.Add(tapGestureRecognizer);
-                SwitchTab.Children.Add(group.Image, i++,0);
+                i = AddSwitchTab(i, group);
             }
+        }
+
+        private int AddSwitchTab(int iterator, GroupOfItems group)
+        {
+            SwitchTab.ColumnDefinitions.Add(new ColumnDefinition());
+            var tapGestureRecognizer = new TapGestureRecognizer();
+            tapGestureRecognizer.Tapped += (s, e) =>
+            {
+                UpdateGrid(group.Items);
+            };
+            group.Image.GestureRecognizers.Add(tapGestureRecognizer);
+            SwitchTab.Children.Add(group.Image, iterator++, 0);
+            return iterator;
         }
 
         async void SegmentedControl_ItemTapped(object sender, int groupIterator)
@@ -107,27 +121,26 @@ namespace AC.Views
         }
         async void AddItem_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NewItemPage());
+            await Navigation.PushModalAsync(new NewItemPage(viewModel));
         }
 
         async void AddGroup_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NewItemPage());
+            await Navigation.PushModalAsync(new NewGroupPage(viewModel));
         }
 
-        private Image GetImageWithProperParams(List<Item> group, int currentIndex)
+        private CachedImage GetImageWithProperParams(List<Item> group, int currentIndex)
         {
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += (s, e) => {
                 MessagingCenter.Send(this,  "ClickPicture", group[currentIndex]);
-                //AddImage(new Image { Source = group[currentIndex].Image.Source });
             };
             group[currentIndex].Image.GestureRecognizers.Clear();
             group[currentIndex].Image.GestureRecognizers.Add(tapGestureRecognizer);
             group[currentIndex].Image.HeightRequest = 0.5;
             return group[currentIndex].Image;
         }
-        private void AddImage(Image image)
+        private void AddImage(CachedImage image)
         {
             image.WidthRequest = ContentGridLayout.Children[0].Width * 0.4;
             image.HeightRequest = ContentGridLayout.Children[0].Height * 0.8;

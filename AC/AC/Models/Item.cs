@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FFImageLoading.Forms;
+using System;
 using Xamarin.Forms;
 
 namespace AC.Models
@@ -10,6 +11,7 @@ namespace AC.Models
         public string Id { get; set; }
         public string Text { get; set; }
         public string Description { get; set; }
-        public Image Image { get; set; }
+        public CachedImage Image { get; set; }
+        public int WhichGroup { get; set; }
     }
 }

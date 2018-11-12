@@ -18,15 +18,15 @@ using System.IO;
 namespace AC.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewItemPage : ContentPage
+    public partial class NewGroupPage : ContentPage
     {
         ItemsViewModel ViewModel;
-        public NewItemPage(ItemsViewModel viewModel)
+        public NewGroupPage(ItemsViewModel viewModel)
         {
             InitializeComponent();
             ViewModel = viewModel;
 
-            PickerGroup.ItemsSource = ViewModel.Groups;
+          
 
             PickPhoto.Clicked += async (sender, args) =>
                 {
@@ -51,11 +51,11 @@ namespace AC.Views
         }
         void Ok_clicked(object sender, EventArgs e)
         {
-            if (PickerGroup.SelectedIndex == -1 || image.Source == null)
+            if (image.Source == null)
                 return;
-            var item = new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = TextField.Text, Description = "", Image = new CachedImage { Source = image.Source }, WhichGroup = PickerGroup.SelectedIndex };
-            DisplayAlert("Dodano Obrazek!", "Prawdopodobnie prawidłowo dodano Piktogram", "OK");
-            MessagingCenter.Send(this, "AddItem", item);
+            var item = new GroupOfItems { Image =new Image { Source = image.Source } , Title = TextField.Text};
+            DisplayAlert("Dodano Grupe!", "Prawdopodobnie prawidłowo dodano grupe", "OK");
+            MessagingCenter.Send(this, "AddGroup", item);
         }
 
     }

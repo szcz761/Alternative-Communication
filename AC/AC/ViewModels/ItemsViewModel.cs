@@ -93,11 +93,18 @@ namespace AC.ViewModels
                 UpdateText();
             });
 
-            MessagingCenter.Subscribe<NewItemPage, GroupOfItems>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<NewGroupPage, GroupOfItems>(this, "AddGroup", async (sender, group) =>
             {
-                var newItem = item as GroupOfItems;
+                var newItem = group as GroupOfItems;
                 Groups.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
+               // await DataStore.AddItemAsync(newItem);
+            });
+
+            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", (sender, item) =>
+            {
+                var newItem = item as Item;
+                Groups[item.WhichGroup].Items.Add(newItem);
+                
             });
 
             MessagingCenter.Subscribe<MainPage, Item>(this, "ClickPicture", (obj, item) =>

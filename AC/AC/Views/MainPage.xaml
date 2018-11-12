@@ -7,10 +7,10 @@
       Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" Clicked="DeleteImage_Click" />
-        <ToolbarItem Text="Speech" Clicked="Speech_Clicked" />
-        <ToolbarItem Text="Listen" Clicked="Listen_Clicked" />
-        <ToolbarItem Text="Add Group" Order="Secondary" Priority="0" Clicked="AddGroup_Clicked" />
+        <ToolbarItem Icon="RemoveIcon" Clicked="DeleteImage_Click" />
+        <ToolbarItem Icon="MicrophoneIcon" Clicked="Speech_Clicked" />
+        <ToolbarItem Icon="SpeakerIcon" Clicked="Listen_Clicked" />
+        <ToolbarItem Text="Add Group"  Order="Secondary" Priority="0" Clicked="AddGroup_Clicked" />
         <ToolbarItem Text="Add Item" Order="Secondary" Priority="1" Clicked="AddItem_Clicked" />
     </ContentPage.ToolbarItems>
     

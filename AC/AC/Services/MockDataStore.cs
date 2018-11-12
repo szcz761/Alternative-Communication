@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using AC.Models;
 using Android;
 using Android.Content;
+using Android.Widget;
+using FFImageLoading;
+using FFImageLoading.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 
@@ -23,34 +26,35 @@ namespace AC.Services
             Groups.Add(GenerateGroupOsoby());
             Groups.Add(GenerateGroupCzynnosci());
             Groups.Add(GenerateGroupRzeczy());
-            //Groups.Add(GenerateGroupEmocje());
-           // Groups.Add(GenerateGroupMiejsca());
+            Groups.Add(GenerateGroupEmocje());
+            Groups.Add(GenerateGroupMiejsca());
         }
 
         GroupOfItems GenerateGroupCzynnosci()
         {
             var group = new GroupOfItems(new List<Item>{
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "czytać", Description = "", Image = new Image { Source = "czytac" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "grać", Description = "", Image = new Image { Source = "grac" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "jeść", Description = "", Image = new Image { Source = "jesc" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pić", Description = "", Image = new Image { Source = "pic" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pisać", Description = "", Image = new Image { Source = "pisac" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "słuchać", Description = "", Image = new Image { Source = "sluchac" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "spać", Description = "", Image = new Image { Source = "spac" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "czytać", Description = "", Image = new CachedImage { Source = "czytac" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "grać", Description = "", Image = new CachedImage { Source = "grac" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "jeść", Description = "", Image = new CachedImage { Source = "jesc" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pić", Description = "", Image = new CachedImage { Source = "pic" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pisać", Description = "", Image = new CachedImage { Source = "pisac" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "słuchać", Description = "", Image = new CachedImage { Source = "sluchac" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "spać", Description = "", Image = new CachedImage { Source = "spac" } },
                 });
-            group.Title = "czynności";
+          
+           group.Title = "czynności";
             group.Image = new Image { Source = "czynnosci" };
             return group;
         }
         GroupOfItems GenerateGroupOgolne()
         {
             var group = new GroupOfItems(new List<Item>{
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "chcieć", Description = "", Image = new Image { Source = "chciec" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "gdzie", Description = "", Image = new Image { Source = "gdzie" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "nie", Description = "", Image = new Image { Source = "nie" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pomoc", Description = "", Image = new Image { Source = "pomoc" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "tak", Description = "", Image = new Image { Source = "tak" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "z", Description = "", Image = new Image { Source = "z" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "chcieć", Description = "", Image = new CachedImage { Source = "chciec" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "gdzie", Description = "", Image = new CachedImage { Source = "gdzie" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "nie", Description = "", Image = new CachedImage { Source = "nie" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pomoc", Description = "", Image = new CachedImage { Source = "pomoc" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "tak", Description = "", Image = new CachedImage { Source = "tak" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "z", Description = "", Image = new CachedImage { Source = "z" } },
                 });
             group.Title = "ogólne";
             group.Image = new Image { Source = "ogolne" };
@@ -59,11 +63,11 @@ namespace AC.Services
         GroupOfItems GenerateGroupEmocje()
         {
             var group = new GroupOfItems(new List<Item>{
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "ból", Description = "", Image = new Image { Source = "bol" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "szczęscie", Description = "", Image = new Image { Source = "szczescie" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "złość", Description = "", Image = new Image { Source = "zlosc" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "zmęczenie", Description = "", Image = new Image { Source = "zmeczenie" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "znudzenie", Description = "", Image = new Image { Source = "znudzenie" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "ból", Description = "", Image = new CachedImage { Source = "bol" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "szczęscie", Description = "", Image = new CachedImage { Source = "szczescie" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "złość", Description = "", Image = new CachedImage { Source = "zlosc" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "zmęczenie", Description = "", Image = new CachedImage { Source = "zmeczenie" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "znudzenie", Description = "", Image = new CachedImage { Source = "znudzenie" } },
                 });
             group.Title = "emocje";
             group.Image = new Image { Source = "emocje" };
@@ -72,10 +76,10 @@ namespace AC.Services
         GroupOfItems GenerateGroupMiejsca()
         {
             var group = new GroupOfItems(new List<Item>{
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "dom", Description = "", Image = new Image { Source = "dom" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "kuchnia", Description = "", Image = new Image { Source = "kuchnia" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "praca", Description = "", Image = new Image { Source = "praca" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "szkoła", Description = "", Image = new Image { Source = "szkola" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "dom", Description = "", Image = new CachedImage { Source = "dom" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "kuchnia", Description = "", Image = new CachedImage { Source = "kuchnia" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "praca", Description = "", Image = new CachedImage { Source = "praca" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "szkoła", Description = "", Image = new CachedImage { Source = "szkola" } },
                 });
             group.Title = "miejsca";
             group.Image = new Image { Source = "miejsca" };
@@ -84,14 +88,14 @@ namespace AC.Services
         GroupOfItems GenerateGroupOsoby()
         {
             var group = new GroupOfItems(new List<Item>{
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "ja", Description = "", Image = new Image { Source = "ja" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "ty", Description = "", Image = new Image { Source = "ty" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "my", Description = "", Image = new Image { Source = "my" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "wy", Description = "", Image = new Image { Source = "wy" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "mama", Description = "", Image = new Image { Source = "mama" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "tata", Description = "", Image = new Image { Source = "tata" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "babcia", Description = "", Image = new Image { Source = "babcia" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "siostra", Description = "", Image = new Image { Source = "siostra" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "ja", Description = "", Image = new CachedImage { Source = "ja" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "ty", Description = "", Image = new CachedImage { Source = "ty" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "my", Description = "", Image = new CachedImage { Source = "my" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "wy", Description = "", Image = new CachedImage { Source = "wy" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "mama", Description = "", Image = new CachedImage { Source = "mama" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "tata", Description = "", Image = new CachedImage { Source = "tata" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "babcia", Description = "", Image = new CachedImage { Source = "babcia" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "siostra", Description = "", Image = new CachedImage { Source = "siostra" } },
                 });
             group.Title = "osoby";
             group.Image = new Image { Source = "osoby" };
@@ -100,16 +104,16 @@ namespace AC.Services
         GroupOfItems GenerateGroupRzeczy()
         {
             var group = new GroupOfItems(new List<Item>{
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "komputer", Description = "", Image = new Image { Source = "komputer" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pies", Description = "", Image = new Image { Source = "pies" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "kot", Description = "", Image = new Image { Source = "kot" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pomrańcz", Description = "", Image = new Image { Source = "pomarancz" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "ręka", Description = "", Image = new Image { Source = "reka" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "sofa", Description = "", Image = new Image { Source = "sofa" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "sól", Description = "", Image = new Image { Source = "sol" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "zbawka", Description = "", Image = new Image { Source = "zabawka" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "zadanie domowe", Description = "", Image = new Image { Source = "zadanieDomowe" } },
-                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "zeszyt", Description = "", Image = new Image { Source = "zeszyt" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "komputer", Description = "", Image = new CachedImage { Source = "komputer" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pies", Description = "", Image = new CachedImage { Source = "pies" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "kot", Description = "", Image = new CachedImage { Source = "kot" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "pomrańcza", Description = "", Image = new CachedImage { Source = "pomarancz" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "ręka", Description = "", Image = new CachedImage { Source = "reka" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "sofa", Description = "", Image = new CachedImage { Source = "sofa" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "sól", Description = "", Image = new CachedImage { Source = "sol" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "zbawka", Description = "", Image = new CachedImage { Source = "zabawka" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "zadanie domowe", Description = "", Image = new CachedImage { Source = "zadanieDomowe" } },
+                new Item { Id = Guid.NewGuid().ToString(), WordType = WordType.noun, Text = "zeszyt", Description = "", Image = new CachedImage { Source = "zeszyt" } },
                 });
             group.Title = "rzeczy";
             group.Image = new Image { Source = "rzeczy" };
