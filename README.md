@@ -1,1 +1,1 @@
-Program na prace inżynierską - "Aplikacja mobilna do omunikacji alernatywnej". Nauka technologi .NET Xamarin Forms.  
+ Mobilna aplikacja wspomagająca komunikacje alternatywną dla osób chorych
